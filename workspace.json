@@ -1,0 +1,143 @@
+{
+  "version": 2,
+  "projects": {
+    "my-resume": {
+      "root": "apps/my-resume",
+      "sourceRoot": "apps/my-resume/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/my-resume",
+            "index": "apps/my-resume/src/index.html",
+            "main": "apps/my-resume/src/main.tsx",
+            "polyfills": "apps/my-resume/src/polyfills.ts",
+            "tsConfig": "apps/my-resume/tsconfig.app.json",
+            "assets": [
+              "apps/my-resume/src/favicon.ico",
+              "apps/my-resume/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/my-resume/src/environments/environment.ts",
+                  "with": "apps/my-resume/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "my-resume:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "my-resume:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/my-resume/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/my-resume"
+          ],
+          "options": {
+            "jestConfig": "apps/my-resume/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "my-resume-e2e": {
+      "root": "apps/my-resume-e2e",
+      "sourceRoot": "apps/my-resume-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/my-resume-e2e/cypress.json",
+            "tsConfig": "apps/my-resume-e2e/tsconfig.e2e.json",
+            "devServerTarget": "my-resume:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "my-resume:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/my-resume-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "my-resume"
+}
